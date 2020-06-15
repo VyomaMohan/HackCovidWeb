@@ -1,0 +1,16 @@
+.rowDisplay{
+    display: flex;
+    flex-direction: row;
+    background-color: #57CAFA;
+}
+
+.rowDisplay img{
+    width: 33.33%;
+    height: 100%;
+}
+
+.rowDisplay p{
+    width: 33.33%;
+    align-items: center;
+    font-size: large;
+}
