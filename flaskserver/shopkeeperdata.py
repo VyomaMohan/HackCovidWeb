@@ -15,9 +15,26 @@ def getorders(storeName):
     client = MongoClient(connection_string)
     #db=client.admin
     
-    orderlist=client.storedata.orders.find({"shopname":storeName},{"_id":0})
+    storeList=client.storedata.storedata.find({"phone":storeName})
+    
+    for x in storeList:
+        orderlist=client.storedata.orders.find({"shopname":x["name"]},{"_id":0})
     
     listorder=[doc for doc in orderlist]
     
     
     return listorder
+
+def checkShopkeeper(phoneNum,password):
+    resultString=""
+    print("Verify credentials")
+    connection_string="mongodb+srv://vyo:qwerty123@smartshopper.sebc2.mongodb.net/test"
+    client = MongoClient(connection_string)
+    
+    shopList=client.storedata.storedata.find({"phone":phoneNum},{"_id":0})
+    for x in shopList:
+        if(x["password"]==password):
+            resultString="correct"
+        else:
+            resultString="incorrect"
+    return resultString

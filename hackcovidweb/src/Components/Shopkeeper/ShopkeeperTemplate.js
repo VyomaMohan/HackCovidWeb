@@ -12,10 +12,10 @@ class ShopkeeperTemplate extends React.Component{
         return(
             <div>
             <div id="shopkeeperNav">
-                <ShopKeeperNav/>
+                <ShopKeeperNav phone={this.props.phone}/>
             </div>
             <div id="shopkeeperContent">
-                <ShopkeeperOrderList/>
+                <ShopkeeperOrderList phone={this.props.phone}/>
             </div>
             </div>
         )

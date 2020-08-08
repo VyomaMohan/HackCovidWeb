@@ -9,13 +9,14 @@ class ShopkeeperOrderList extends React.Component{
 
         this.state={
             storeName:"store1",
+            phone:this.props.phone,
             data:[]
         }
 
     }
 
     async componentWillMount(){
-        await fetch("http://127.0.0.1:5000/orders?store="+this.state.storeName,{
+        await fetch("http://127.0.0.1:5000/orders?store="+this.state.phone,{
             method:"GET"
         }).then((response)=>{
             console.log(response)

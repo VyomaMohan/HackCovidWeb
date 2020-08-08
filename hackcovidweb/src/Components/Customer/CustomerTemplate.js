@@ -14,10 +14,10 @@ class CustomerTemplate extends React.Component{
         return(
             <div>
             <div id="customerNav">
-                <CustomerNav/>
+                <CustomerNav phone={this.props.phone}/>
             </div>
             <div id="customerContent">
-                <ViewOrders/>
+                <ViewOrders phone={this.props.phone}/>
             </div>
             </div>
         )

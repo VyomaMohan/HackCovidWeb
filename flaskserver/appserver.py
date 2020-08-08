@@ -43,5 +43,30 @@ def newCustomerOrder():
     print(temprequest)
     return "Order inserted"
 
+@app.route('/verifycustomer',methods=["POST"])
+@cross_origin(supports_credentials=True)
+def verifyCustomer():
+    print("Check login details")
+    temprequest=request.get_json()
+    response=customerdata.checkCustomer(temprequest["phone"],temprequest["password"])
+    return response
+
+@app.route('/findcustomer',methods=["GET"])
+@cross_origin(supports_credentials=True)
+def findCustomer():
+    print("Finding customer")
+    phoneNum=request.args.get("phone")
+    response=customerdata.getCustomerDetails(phoneNum)
+    res=make_response(jsonify(response),200)
+    return res
+
+@app.route('/verifyshopkeeper',methods=["POST"])
+@cross_origin(supports_credentials=True)
+def verifyShopKeeper():
+    print("Check login details for shopkeeper")
+    temprequest=request.get_json()
+    response=shopkeeperdata.checkShopkeeper(temprequest["phone"],temprequest["password"])
+    return response
+
 if __name__=='__main__':
     app.run()

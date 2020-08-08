@@ -14,11 +14,11 @@ class CustomerNav extends React.Component{
     }
 
     viewOrderClickHandler(){
-        ReactDOM.render(<ViewOrders/>,document.getElementById('customerContent'))
+        ReactDOM.render(<ViewOrders phone={this.props.phone}/>,document.getElementById('customerContent'))
     }
 
     newOrderClickHandler(){
-        ReactDOM.render(<NewOrder/>,document.getElementById('customerContent'))
+        ReactDOM.render(<NewOrder phone={this.props.phone}/>,document.getElementById('customerContent'))
     }
 
     render(){

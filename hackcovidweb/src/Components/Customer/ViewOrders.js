@@ -7,7 +7,7 @@ class ViewOrders extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            custNumber:"1234567890",
+            custNumber:this.props.phone,
             data:[]
         }
     }

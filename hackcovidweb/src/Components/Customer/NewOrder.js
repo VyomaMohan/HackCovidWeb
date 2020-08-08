@@ -4,17 +4,18 @@ import 'antd/dist/antd.css';
 
 import { Form, Input, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { DatePicker, Space } from 'antd';
 
 class NewOrder extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            name:"abc",
-            phone:"1234567890",
-            area:"a nagar",
-            city:"chennai",
-            store:"store1",
-            orderdate:"08/08/2020",
+            name:"",
+            phone:this.props.phone,
+            area:"",
+            city:"",
+            store:"",
+            orderdate:"",
             itemList:[],
             quantityList:[],
         }
@@ -22,7 +23,33 @@ class NewOrder extends React.Component{
         this.listQuantityUpdate=this.listQuantityUpdate.bind(this);
         this.listAddItems=this.listAddItems.bind(this);
         this.listRemoveItems=this.listRemoveItems.bind(this);
+        this.changeStoreName=this.changeStoreName.bind(this);
         this.submitList=this.submitList.bind(this);
+        this.changeDate=this.changeDate.bind(this);
+    }
+
+
+    
+    async componentWillMount(){
+      await fetch("http://127.0.0.1:5000/findcustomer?phone="+this.props.phone,{
+            method:"GET"
+        }).then((response)=>{
+            console.log(response)
+            return response.json()
+        }).then((parsedJson)=>{
+            var messageJson=JSON.stringify(parsedJson)
+            var stateObj=JSON.parse(messageJson)
+            console.log(stateObj)
+            this.setState({
+              name:stateObj[0]["name"]
+            })
+            this.setState({
+              city:stateObj[0]["city"]
+            })
+            this.setState({
+              area:stateObj[0]["area"]
+            })
+        })
     }
 
     listAddItems(){
@@ -70,7 +97,9 @@ class NewOrder extends React.Component{
     }
 
     async submitList(){
+
         console.log("Submitting")
+        console.log(this.state.area)
         var combinedList=[]
         var count=this.state.itemList.length
         for(var i=0;i<count;i++){
@@ -99,11 +128,23 @@ class NewOrder extends React.Component{
             redirect: 'follow'
           };
           
-          fetch("http://127.0.0.1:5000/neworder", requestOptions)
+          await fetch("http://127.0.0.1:5000/neworder", requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 
+    }
+
+    changeStoreName(event){
+      this.setState({
+        store:event.target.value
+      })
+    }
+
+    changeDate(date,dateString){
+        this.setState({
+          orderdate:dateString
+        })
     }
 
     render(){
@@ -127,6 +168,17 @@ class NewOrder extends React.Component{
         return(
             <div>
                  <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel}>
+
+                    <Form.Item>
+                      <Input placeholder="store name" style={{ width: '60%' }} onChange={this.changeStoreName}></Input>
+                    </Form.Item>
+
+                    <Form.Item>
+                    <Space direction="vertical">
+                      <DatePicker onChange={this.changeDate} />
+                    </Space>
+                    </Form.Item>
+
                     <Form.List name="names">
                         {(fields, { add, remove }) => {
                         return (
