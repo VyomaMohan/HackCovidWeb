@@ -1,6 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import ShopKeeperNav from './ShopkeeperNav';
+import ShopkeeperOrderList from './ShopkeeperOrderList';
 
 class ShopkeeperTemplate extends React.Component{
     constructor(props){
@@ -14,7 +15,7 @@ class ShopkeeperTemplate extends React.Component{
                 <ShopKeeperNav/>
             </div>
             <div id="shopkeeperContent">
-                
+                <ShopkeeperOrderList/>
             </div>
             </div>
         )
